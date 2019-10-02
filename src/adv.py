@@ -81,7 +81,7 @@ while move[0] != 'q':
             print('\nYou moved west')
         elif move[0] == 'inspect':
             player.room.inspect()
-            move = "no repeat"
+            move[0] = "no repeat"
         elif move[0] == 'i' or move[0] == 'inventory':
             print('Inventory:')
             for item in player.inventory:
