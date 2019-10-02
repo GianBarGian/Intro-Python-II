@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 # Declare all the rooms
 
 room = {
@@ -21,6 +22,12 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+hat = Item('Hat', 'a comfortable hat')
+sword = Item('Sword', 'a sword to slay monsters')
+shield = Item('Shield', 'a shield to protect yourself')
+boots = Item('Boots', 'a pair of boots to protect yourself from cold')
+ring = Item('Ring', 'a magic ring. What will it do?')
+armor = Item('Armor', 'a fine armor to protect yourself')
 
 # Link rooms together
 
@@ -32,6 +39,13 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+
+
+# Add items to rooms
+room['outside'].items = [hat, boots]
+room['foyer'].items = [armor]
+room['overlook'].items = [ring]
+room['narrow'].items = [sword, shield]
 
 #
 # Main
@@ -52,14 +66,18 @@ player = Player(name, room['outside'])
 # If the user enters "q", quit the game.
 move = ''
 while move != 'q':
-
-    print(f'\n{player.name} you are at {player.room.name}\n')
-    print(player.room.description)
-    move = input('Where do you want to go? n/s/w/e (q for quit the game): ')
+    if move != "no repeat":
+        print(f'\n{player.name} you are at {player.room.name}\n')
+        print(player.room.description)
+        print('\nAfter you searched the room you could find these items')
+        for item in player.room.items:
+            print(f'  -{item.name}: This is {item.description}')
+    move = input('\nWhere do you want to go? n/s/w/e (q for quit the game): ')
     if move == 'q':
         print('Thanks for playing this game')
     elif move != 'n' and move != 's' and move != 'w' and move != 'e':
         print('Pease insert a valid direction (or q to quit)')
+        move = "no repeat"
     elif move == 'n' and player.room.n_to:
         player.room = player.room.n_to
         print('\nYou moved north')
@@ -74,3 +92,4 @@ while move != 'q':
         print('\nYou moved west')
     else:
         print('\nThere is nothing there, try another direction')
+        move = "no repeat"
