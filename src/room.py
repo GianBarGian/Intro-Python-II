@@ -11,6 +11,7 @@ class Room:
         self.e_to = None
         self.w_to = None
         self.items = None
+
     def inspect(self):
         print('\nAfter you searched the room you could find these items')
         for item in self.items:

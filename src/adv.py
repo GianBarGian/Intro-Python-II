@@ -22,6 +22,8 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+# Create items
+
 hat = Item('Hat', 'a comfortable hat')
 sword = Item('Sword', 'a sword to slay monsters')
 shield = Item('Shield', 'a shield to protect yourself')
@@ -50,20 +52,8 @@ room['narrow'].items = [sword, shield]
 #
 # Main
 #
-
-# Make a new player object that is currently in the 'outside' room.
 name = input('Please provide a name for your character: ')
 player = Player(name, room['outside'])
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
 move = [""]
 while move[0] != 'q':
     if move[0] != "no repeat":
@@ -74,7 +64,7 @@ while move[0] != 'q':
     if len(move) == 1:
         if move[0] == 'q':
             print('Thanks for playing this game')
-        elif move[0] != 'n' and move[0] != 's' and move[0] != 'w' and move[0] != 'e' and move[0] != 'inspect' and move[0] != 'inventory' and move[0] != 'i' :
+        elif move[0] != 'n' and move[0] != 's' and move[0] != 'w' and move[0] != 'e' and move[0] != 'inspect' and move[0] != 'inventory' and move[0] != 'i':
             print('Pease insert a valid direction (or q to quit)')
             move[0] = "no repeat"
         elif move[0] == 'n' and player.room.n_to:
@@ -102,7 +92,8 @@ while move[0] != 'q':
             move[0] = "no repeat"
     else:
         if move[0] == 'take':
-            item_exist = list(filter(lambda item: item.name == move[1], player.room.items))
+            item_exist = list(
+                filter(lambda item: item.name == move[1], player.room.items))
             if len(item_exist) > 0:
                 item = item_exist[0]
                 player.room.items.remove(item)
@@ -111,7 +102,8 @@ while move[0] != 'q':
             else:
                 print('That item is not here!')
         if move[0] == 'drop':
-            item_exist = list(filter(lambda item: item.name == move[1], player.inventory))
+            item_exist = list(
+                filter(lambda item: item.name == move[1], player.inventory))
             if len(item_exist) > 0:
                 item = item_exist[0]
                 player.room.items.append(item)
@@ -120,8 +112,3 @@ while move[0] != 'q':
             else:
                 print('That item is not here!')
         move[0] = "no repeat"
-        
-
-
-                    
-
