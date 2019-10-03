@@ -65,10 +65,11 @@ def action_logic(action_list):
 
 def single_action(action):
     global act
+    
     if action == 'q':
         print('Thanks for playing this game')
-    elif action not in ['n', 's', 'w', 'e', 'inspect', 'inventory', 'i']:
-        print('Pease insert a valid direction (or q to quit)')
+    elif action not in ['n', 's', 'w', 'e', 'inspect', 'inventory', 'i', 'help']:
+        print('Please insert a valid command (or help to list the commands)')
         act[0] = "no repeat"
     elif action == 'n' and player.room.n_to:
         player.room = player.room.n_to
@@ -90,6 +91,9 @@ def single_action(action):
         for item in player.inventory:
             print(f'  -{item.name}')
         act[0] = "no repeat"
+    elif action == 'help':
+        print(" n/s/w/e: move\n inspect: inspect the room\n pick <item>: pick that item\n drop <item>: drop that item\n inventroy/i: look at the inventory\n q: quit")
+
     else:
         print('\nThere is nothing there, try another direction')
         act[0] = "no repeat"
@@ -126,8 +130,6 @@ def room_description(player):
         print(player.room.description)
     else:
         print('Is pitch black!')
-
-print(type(torch).__name__)
 #
 # Main
 #
@@ -138,8 +140,6 @@ player = Player(name, room['outside'])
 while act[0] != 'q':
     if act[0] != "no repeat":
         room_description(player)
-        # print(f'\n{player.name} you are at {player.room.name}\n')
-        # print(player.room.description)
-    act = input('\nWhere do you want to go? n/s/w/e (q for quit the game): ')
+    act = input('\nPlease insert a command (or help to list the commands): ')
     act = act.strip().split(' ')
     action_logic(act)
