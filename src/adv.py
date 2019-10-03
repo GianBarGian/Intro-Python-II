@@ -92,7 +92,7 @@ def single_action(action):
             print(f'  -{item.name}')
         act[0] = "no repeat"
     elif action == 'help':
-        print(" n/s/w/e: move\n inspect: inspect the room\n pick <item>: pick that item\n drop <item>: drop that item\n inventroy/i: look at the inventory\n q: quit")
+        print(" n/s/w/e: move\n inspect: inspect the room\n take <item>: take that item\n drop <item>: drop that item\n inventroy/i: look at the inventory\n q: quit")
 
     else:
         print('\nThere is nothing there, try another direction')
